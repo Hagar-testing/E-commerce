@@ -40,8 +40,8 @@
                     <threadCount>8</threadCount>
                     <properties>
                         <property>
-                            <name>usedefaultlisteners</name>
-                            <value>false</value>
+                            <name>listener</name>
+                            <value>in.automationtesting.practice.engine.listener.TestngListener</value>
                         </property>
                     </properties>
                 </configuration>
