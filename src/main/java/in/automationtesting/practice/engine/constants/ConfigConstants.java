@@ -1,4 +1,4 @@
-package in.automationtesting.practice.constants;
+package in.automationtesting.practice.engine.constants;
 
 public class ConfigConstants {
 

@@ -1,4 +1,4 @@
-package in.automationtesting.practice.enums;
+package in.automationtesting.practice.engine.enums;
 
 public enum BrowserType {
     CHROME("chrome"),

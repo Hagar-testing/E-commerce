@@ -1,10 +1,10 @@
-package in.automationtesting.practice.factory;
+package in.automationtesting.practice.engine.factory;
 
-import com.demoblaze.enums.BrowserType;
+import in.automationtesting.practice.engine.enums.BrowserType;
 import org.openqa.selenium.WebDriver;
 
-import static com.demoblaze.constants.ConfigConstants.BROWSER;
-import static com.demoblaze.enums.BrowserType.CHROME;
+import static in.automationtesting.practice.engine.constants.ConfigConstants.BROWSER;
+import static in.automationtesting.practice.engine.enums.BrowserType.CHROME;
 
 
 
