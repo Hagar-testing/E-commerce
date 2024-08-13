@@ -1,4 +1,4 @@
-# E-Commerce-Selenium-TestNG-RestAssured-Cucumber
+# E-Commerce
 
 ### Tools and technologies used in the project:
 * Selenium Webdriver
