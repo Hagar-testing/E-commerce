@@ -25,7 +25,7 @@ public class CartPage extends BasePage {
     }
 
     //region Assertions
-    @Step("Assert product is visible")
+    @Step("Assert product is visible in cart")
     public void assertProductIsVisible(String productName) {
         Assert.assertTrue(actionsBot.isElementDisplayed(getProduct(productName)));
     }
