@@ -19,7 +19,7 @@ public class ExtentReport {
         report.attachReporter(spark);
         spark.config().setTheme(Theme.STANDARD);
         spark.config().setDocumentTitle("Extent Report");
-        spark.config().setReportName("Demoblaze Report");
+        spark.config().setReportName("Automation Practice Report");
     }
 
     public static void createTest(String testCaseName) {
@@ -79,7 +79,7 @@ public class ExtentReport {
     }
 
     public static void flushReports() {
-        if(threadLocal.get() != null) report.flush();
+            report.flush();
     }
 
 }
