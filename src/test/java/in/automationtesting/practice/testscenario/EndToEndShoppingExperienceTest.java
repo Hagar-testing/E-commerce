@@ -59,10 +59,21 @@ public class EndToEndShoppingExperienceTest {
                 );
     }
 
+    @Story("Shopping Cart")
+    @Description("Given a product is displayed and added to the cart, When I view the cart, Then the product's price should be displayed correctly")
+    @Test(dependsOnMethods = {"verifyItemIsAddedCorrectlyToCart"}, description = "Verify Product Added to Cart")
+    public void verifyItemPriceIsCorrect() {
+        new CartPage(getDriver())
+                .assertProductIsPriceIsDisplayedCorrectly(
+                        getTestData(data, "products.first_product.title"),
+                        getTestData(data, "products.first_product.price")
+                );
+    }
+
 
     @Story("Checkout Process")
     @Description("Given I am in the cart, When I proceed to checkout, Then the billing form should be displayed")
-    @Test(dependsOnMethods = {"verifyItemIsAddedCorrectlyToCart"}, description = "Verify Billing Form Visibility")
+    @Test(dependsOnMethods = {"verifyItemPriceIsCorrect"}, description = "Verify Billing Form Visibility")
     public void verifyBillingFormIsDisplayed() {
         new CartPage(driver)
                 .navigateToCheckout()
