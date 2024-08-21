@@ -7,9 +7,6 @@ on:
     - cron: '00 1 * * *'
   workflow_dispatch:
 
-env:
-  TESTING_SCOPE: "%regex[.*Tests.*],in.automationtesting.practice.tests.**.**,in.automationtesting.practice.tests.tests.**"
-
 jobs:
 
   Ubuntu_Chrome_Grid:
