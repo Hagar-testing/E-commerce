@@ -1,4 +1,4 @@
-package in.automationtesting.practice.tests.testscenario;
+package in.automationtesting.practice;
 
 
 import in.automationtesting.practice.engine.JsonUtils;
