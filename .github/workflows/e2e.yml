@@ -32,15 +32,32 @@ jobs:
       - name: Run tests
         continue-on-error: true
         run: mvn clean test
-      - name: Generate Allure Report
-        run: allure serve target/allure-results
+          # Build Allure Report
+      - name: Build Allure Report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+         gh_pages: master-history
+         allure_history: allure-history
+         allure_results: target/allure-results  # Adjust this path if necessary
 
+      # Publish Allure Report to the master branch
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+           publish_branch: master
+           publish_dir: allure-history
+
+          # Upload Allure Report as Pipeline Artifact (Optional if you also want to store it as an artifact)
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu_Chrome_Grid_Allure
-          path: "target/allure-results/*.html"
+           name: Ubuntu_Chrome_Grid_Allure
+           path: "target/allure-results/*.html"  # Ensure this matches where the report is generated
+
       - name: Test Summary
         uses: test-summary/action@v2
         with:
