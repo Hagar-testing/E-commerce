@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: allure-results/*.html
+          path: target/allure-results/history/*.html
       - name: Test Summary
         uses: test-summary/action@v2
         with:
