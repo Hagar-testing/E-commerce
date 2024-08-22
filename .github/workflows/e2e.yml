@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
       - name: Set up Native Selenium Grid
         run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
       - name: Set up JDK 21
