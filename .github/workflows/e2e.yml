@@ -29,13 +29,9 @@ jobs:
       - name: Run tests
         continue-on-error: true
         run: mvn clean test
-      - name: Install Allure
-        run: |
-          sudo apt-add-repository ppa:qameta/allure
-          sudo apt-get update
-          sudo apt-get install allure
+
       - name: Generate Allure Report
-        run: allure serve target/allure-results
+        run: docker build . -t allure-gen
       - name: List Allure Results Directory
         run: ls -al target/allure-results
       - name: Upload Allure Report as Pipeline Artifact
@@ -43,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: target/allure-results/*.html
+          path: allure-results/*.html
       - name: Test Summary
         uses: test-summary/action@v2
         with:
