@@ -1,0 +1,9 @@
+{
+    "products": {
+        "first_product": {
+            "title": "Thinking in HTML",
+            "price": "400"
+        }
+    }
+
+}
