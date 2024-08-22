@@ -32,10 +32,7 @@ jobs:
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.7
-        with:
-          results-dir: target/allure-results
-          report-dir: allure-report
-
+   
       - name: List Allure Results Directory
         continue-on-error: true
         run: ls -al target/allure-results
