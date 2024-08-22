@@ -31,8 +31,13 @@ jobs:
         run: mvn clean test
 
       - name: Generate Allure Report
-        run: docker build . -t allure-gen
+        uses: simple-elf/allure-report-action@v1.7
+        with:
+          results-dir: target/allure-results
+          report-dir: allure-report
+
       - name: List Allure Results Directory
+        continue-on-error: true
         run: ls -al target/allure-results
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
