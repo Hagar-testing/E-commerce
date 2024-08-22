@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages
       - name: Set up Native Selenium Grid
         run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
       - name: Set up JDK 21
@@ -32,13 +29,21 @@ jobs:
       - name: Run tests
         continue-on-error: true
         run: mvn clean test
-      - name: Build Allure Report
+      - name: Load test report history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: master-history
+          gh_pages: gh-pages
           allure_history: allure-history
-          allure_results: target/allure-results
+          allure_results: build/allure-results
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
