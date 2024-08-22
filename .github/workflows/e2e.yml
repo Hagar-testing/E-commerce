@@ -45,7 +45,13 @@ jobs:
           allure_results: target/allure-results # Specify the directory containing Allure results
           allure_history: allure-history # Specify the directory to store Allure history
           keep_reports: 5 # Specify the number of previous reports to keep
+      # Add a step to list all files in the target directory
+      - name: List All Files in Target Directory
+        run: ls -R target/
 
+      # List all files in the current workspace
+      - name: List All Files in Workspace
+        run: ls -R
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
