@@ -32,8 +32,8 @@ jobs:
       - name: Run tests
         continue-on-error: true
         run: mvn clean test
-         - name: Generate Allure Report
-         run: allure serve target/allure-results
+      - name: Generate Allure Report
+        run: allure serve target/allure-results
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
