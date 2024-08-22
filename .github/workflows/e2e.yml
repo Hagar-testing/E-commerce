@@ -30,41 +30,20 @@ jobs:
         continue-on-error: true
         run: mvn clean test
 
-      - name: Get Allure history # Step to retrieve Allure history
-        uses: actions/checkout@v3
-        if: always() # Execute even if previous steps fail
-        continue-on-error: true # Continue execution even if the step fails
-        with:
-          ref: gh-pages # Specify the branch to retrieve Allure history from
-          path: gh-pages # Set the destination path for Allure history
+      # Build Allure Report
+      - name: Generate Allure Report
+        run: |
+          allure generate target/allure-results -o target/allure-report
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/21.0.4-7/x64
 
-      - name: Generate Allure report  # Step to generate Allure report
-        uses: simple-elf/allure-report-action@master
-        if: always() # Execute even if previous steps fail
-        with:
-          allure_results: target/allure-results # Specify the directory containing Allure results
-          allure_history: allure-history # Specify the directory to store Allure history
-          keep_reports: 5 # Specify the number of previous reports to keep
-      # Add a step to list all files in the target directory
-      - name: List All Files in Target Directory
-        run: ls -R target/
-
-      # List all files in the current workspace
-      - name: List All Files in Workspace
-        run: ls -R
+      # Upload Allure Report as Pipeline Artifact
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: /allure-history/last-history/*.html
-
-      - name: Upload Extend Report as Pipeline Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Ubuntu_Chrome_Grid_Allure
-          path: target/extend-results/*.html
+          path: target/allure-report
 
       - name: Test Summary
         uses: test-summary/action@v2
