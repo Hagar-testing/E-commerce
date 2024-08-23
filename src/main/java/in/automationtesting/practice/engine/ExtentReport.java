@@ -10,7 +10,6 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class ExtentReport {
 
     private static ExtentReports report;
-    private static ExtentTest test;
     final static ThreadLocal<ExtentTest> threadLocal = new ThreadLocal<>();
 
     public static void initReports() {
@@ -19,11 +18,11 @@ public class ExtentReport {
         report.attachReporter(spark);
         spark.config().setTheme(Theme.STANDARD);
         spark.config().setDocumentTitle("Extent Report");
-        spark.config().setReportName("Automation Practice Report");
+        spark.config().setReportName("E-commerce Report");
     }
 
     public static void createTest(String testCaseName) {
-        test = report.createTest(testCaseName);
+        ExtentTest test = report.createTest(testCaseName);
         threadLocal.set(test);
     }
 
