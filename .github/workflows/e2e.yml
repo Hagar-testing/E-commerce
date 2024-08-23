@@ -1,34 +1,43 @@
 name: E2E Tests
-'on':
+on:
   pull_request:
     branches:
       - master
   schedule:
     - cron: 00 1 * * *
-  workflow_dispatch: null
+  workflow_dispatch:
+
 jobs:
   Ubuntu_Chrome_Grid:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
       - name: Set up Native Selenium Grid
         run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: zulu
           cache: maven
+
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.5
+
       - name: Check running containers
         run: docker ps
+
       - name: Run tests
         continue-on-error: true
         run: mvn clean test
+
+      - name: List Allure Results Directory (before report generation)
+        run: ls -al build/allure-results
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
@@ -37,17 +46,17 @@ jobs:
           allure_results: build/allure-results
           allure_history: allure-history
 
-      - name: Publish allure report
+      - name: List Allure History Directory (after report generation)
+        run: ls -al allure-history
+
+      - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history  # This directory contains the HTML report
+          publish_dir: allure-history
 
-      - name: List Allure Results Directory
-        continue-on-error: true
-        run: ls -al allure-history
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
