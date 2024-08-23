@@ -45,7 +45,7 @@ jobs:
 
 
       - name: List Allure History Directory (after report generation5)
-        run: ls -al target
+        run: ls -al target/extend-report/
         if: always()
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
@@ -61,6 +61,13 @@ jobs:
         with:
           name: Ubuntu_Chrome_Grid_Allure
           path: allure-history
+
+      - name: Upload Extend Report as Pipeline Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ubuntu_Chrome_Grid_Extend_Report
+          path: target/extend-report
 
       - name: Test Summary
         uses: test-summary/action@v2
