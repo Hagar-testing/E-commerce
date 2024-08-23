@@ -46,6 +46,9 @@ jobs:
       - name: List Allure History Directory (after report generation)
         run: ls -al allure-history
 
+      - name: List Allure History Directory (after report generation2)
+        run: ls -al build/allure-results
+
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
