@@ -43,10 +43,6 @@ jobs:
           allure_results: target/allure-results
           allure_history: allure-history
 
-
-      - name: List Allure History Directory (after report generation5)
-        run: ls -al target/allure-results
-        if: always()
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
