@@ -36,9 +36,6 @@ jobs:
         continue-on-error: true
         run: mvn clean test
 
-      - name: List Allure Results Directory (before report generation)
-        run: ls -al build/allure-results
-
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
@@ -62,7 +59,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: allure-history/*.html
+          path: allure-history
+
       - name: Test Summary
         uses: test-summary/action@v2
         with:
