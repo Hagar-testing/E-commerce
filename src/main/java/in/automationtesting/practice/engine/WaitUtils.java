@@ -15,7 +15,8 @@ public class WaitUtils {
                 .ignoring(NoSuchElementException.class)
                 .ignoring(ElementNotInteractableException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoAlertPresentException.class);
+                .ignoring(NoAlertPresentException.class)
+                .ignoring(ElementClickInterceptedException.class);
     }
 
     public static void waitForTyping(WebDriver driver, By locator, String text, boolean clearBeforeTyping) {
