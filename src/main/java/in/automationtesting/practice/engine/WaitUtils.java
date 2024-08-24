@@ -35,8 +35,8 @@ public class WaitUtils {
     public static void waitForElementToBeClickable(WebDriver driver, By locator) {
         Wait<WebDriver> wait = createWait(driver);
         wait.until(d -> {
-            WebElement element = driver.findElement(locator);
-            return element.isDisplayed() && element.isEnabled();
+             driver.findElement(locator).click();
+             return true;
         });
     }
     public static void waitForElementToBeDisplayed(WebDriver driver, By locator) {

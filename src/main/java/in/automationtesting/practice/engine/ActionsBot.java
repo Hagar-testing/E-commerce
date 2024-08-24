@@ -36,7 +36,6 @@ public class ActionsBot {
     public ActionsBot click(By locator) {
         logElementActionStep("Click on element", locator);
         WaitUtils.waitForElementToBeClickable(driver, locator);
-        driver.findElement(locator).click();
         return this;
     }
 
