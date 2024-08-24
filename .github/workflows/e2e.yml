@@ -41,7 +41,7 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results
-          allure_history: allure-history
+          allure_history: allure-history/chrome
 
       - name: Fetch gh-pages branch
         run: |
@@ -56,14 +56,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-history/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: allure-history
+          path: allure-history/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
@@ -110,7 +110,7 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results
-          allure_history: allure-history
+          allure_history: allure-history/firefox
 
       - name: Fetch gh-pages branch
         run: |
@@ -125,14 +125,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-history/firefox
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Firefox_Grid_Allure
-          path: allure-history
+          path: allure-history/firefox
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
@@ -180,7 +180,7 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results
-          allure_history: allure-history
+          allure_history: allure-history/edge
       - name: Fetch gh-pages branch
         run: |
           git config user.name "github-actions[bot]"
@@ -194,14 +194,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-history/edge
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Edge_Grid_Allure
-          path: allure-history
+          path: allure-history/edge
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
