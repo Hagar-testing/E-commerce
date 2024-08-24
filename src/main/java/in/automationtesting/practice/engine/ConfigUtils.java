@@ -31,5 +31,10 @@ public class ConfigUtils {
         return urlFromSys != null ? urlFromSys : properties.getProperty(BASE_URL);
     }
 
+    public static String getBrowser() {
+        String urlFromSys = System.getProperty(BROWSER);
+        return urlFromSys != null ? urlFromSys : properties.getProperty(BROWSER);
+    }
+
 
 }
