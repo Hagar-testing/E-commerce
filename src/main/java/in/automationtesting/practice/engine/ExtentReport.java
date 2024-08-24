@@ -78,9 +78,7 @@ public class ExtentReport {
     }
 
     public static void flushReports() {
-
-        System.out.println("Flushing Extent Report");
-            report.flush();
+        report.flush();
     }
 
 }
