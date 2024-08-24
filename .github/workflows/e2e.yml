@@ -44,13 +44,8 @@ jobs:
           allure_history: allure-history
 
       - name: Fetch gh-pages branch
-        run: git fetch origin gh-pages
+        run: git pull origin gh-pages
 
-      - name: Set up gh-pages branch
-        run: |
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git reset --hard
-          git pull origin gh-pages
 
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
@@ -115,13 +110,8 @@ jobs:
           allure_history: allure-history
 
       - name: Fetch gh-pages branch
-        run: git fetch origin gh-pages
+        run: git pull origin gh-pages
 
-      - name: Set up gh-pages branch
-        run: |
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git reset --hard
-          git pull origin gh-pages
 
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
@@ -186,13 +176,9 @@ jobs:
           allure_results: target/allure-results
           allure_history: allure-history
       - name: Fetch gh-pages branch
-        run: git fetch origin gh-pages
+        run: git pull origin gh-pages
 
-      - name: Set up gh-pages branch
-        run: |
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git reset --hard
-          git pull origin gh-pages
+
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
