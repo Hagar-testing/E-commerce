@@ -18,7 +18,7 @@ public class FireFoxBaseDriverFactoryImpl implements BaseDriverFactory {
             firefoxOptions.setCapability("platformName", "Linux");
             firefoxOptions.addArguments("--headless");
             firefoxOptions.addArguments("--no-sandbox");
-            firefoxOptions.addArguments("--remote-allow-origins=*");
+          //  firefoxOptions.addArguments("--remote-allow-origins=*");
             return new RemoteWebDriver(new URL("http://localhost:4444"), firefoxOptions);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
