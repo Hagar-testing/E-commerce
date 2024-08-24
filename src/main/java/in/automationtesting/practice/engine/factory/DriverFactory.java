@@ -18,8 +18,8 @@ public class DriverFactory {
 
         switch (browser) {
             case CHROME -> {
-                ChromeBaseDriverFactoryImpl ChromTestFactoryImpl = new ChromeBaseDriverFactoryImpl();
-                driver = ChromTestFactoryImpl.getDriver();
+                ChromeBaseDriverFactoryImpl ChromeTestFactoryImpl = new ChromeBaseDriverFactoryImpl();
+                driver = ChromeTestFactoryImpl.getDriver();
             }
             case FIREFOX -> {
                 FireFoxBaseDriverFactoryImpl fireFoxWebDriverFactory = new FireFoxBaseDriverFactoryImpl();
@@ -37,7 +37,6 @@ public class DriverFactory {
     }
 
     private void configureDriver(WebDriver driver) {
-       // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
     }
 }
