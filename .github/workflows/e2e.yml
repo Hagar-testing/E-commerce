@@ -117,14 +117,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu_Chrome_Grid_Allure
+          name: Ubuntu_Firefox_Grid_Allure
           path: allure-history
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu_Chrome_Grid_Extend_Report
+          name: Ubuntu_Firefox_Grid_Extend_Report
           path: target/extend-report
 
       - name: Test Summary
@@ -180,14 +180,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu_Chrome_Grid_Allure
+          name: Ubuntu_Edge_Grid_Allure
           path: allure-history
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu_Chrome_Grid_Extend_Report
+          name: Ubuntu_Edge_Grid_Extend_Report
           path: target/extend-report
 
       - name: Test Summary
