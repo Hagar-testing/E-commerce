@@ -45,9 +45,10 @@ jobs:
 
           # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
-        run: |
-          echo "Locating 'last-history' files..."
-          find . -type f -name "last-history" -exec ls -l {} \;
+        run: ls -l target/allure-results/chrome
+      # Locate 'last-history' files after generating the report
+      - name: Locate and Display Allure History Files2
+        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
@@ -120,9 +121,11 @@ jobs:
           allure_history: allure-history/firefox
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
-        run: |
-          echo "Locating 'last-history' files..."
-          find . -type f -name "last-history" -exec ls -l {} \;
+        run: ls -l target/allure-results/firefox
+
+      # Locate 'last-history' files after generating the report
+      - name: Locate and Display Allure History Files2
+        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
@@ -196,9 +199,10 @@ jobs:
           allure_history: allure-history/edge
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
-        run: |
-          echo "Locating 'last-history' files..."
-          find . -type f -name "last-history" -exec ls -l {} \;
+        run: ls -l target/allure-results/edge
+      # Locate 'last-history' files after generating the report
+      - name: Locate and Display Allure History Files2
+        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
