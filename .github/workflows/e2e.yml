@@ -63,6 +63,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/chrome
+          destination_dir: chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -137,6 +138,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/firefox
+          destination_dir: firefox
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -212,6 +214,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/edge
+          destination_dir: edge
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
