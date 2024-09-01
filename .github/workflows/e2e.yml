@@ -41,7 +41,6 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results/chrome
-          allure_history: allure-history/chrome
 
           # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
@@ -63,8 +62,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history/chrome
-          destination_dir: chrome
+          publish_dir: target/allure-results/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
