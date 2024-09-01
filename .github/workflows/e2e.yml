@@ -34,13 +34,13 @@ jobs:
 
       - name: Run tests
         continue-on-error: true
-        run: mvn clean test -Dbrowser=chrome
+        run: mvn clean test -Dbrowser=chrome -Dallure.results.directory=target/allure-results/chrome
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          allure_results: allure-results/chrome
+          allure_results: target/allure-results/chrome
           allure_history: allure-history/chrome
 
           # Locate 'last-history' files after generating the report
@@ -109,13 +109,13 @@ jobs:
 
       - name: Run tests
         continue-on-error: true
-        run: mvn clean test -Dbrowser=firefox
+        run: mvn clean test -Dbrowser=firefox -Dallure.results.directory=target/allure-results/firefox
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          allure_results: allure-results/firefox
+          allure_results: target/allure-results/firefox
           allure_history: allure-history/firefox
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
@@ -184,13 +184,13 @@ jobs:
 
       - name: Run tests
         continue-on-error: true
-        run: mvn clean test -Dbrowser=edge
+        run: mvn clean test -Dbrowser=edge -Dallure.results.directory=target/allure-results/edge
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          allure_results: allure-results/edge
+          allure_results: target/allure-results/edge
           allure_history: allure-history/edge
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
