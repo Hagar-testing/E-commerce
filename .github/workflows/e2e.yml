@@ -190,7 +190,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          allure_results: target/allure-results
+          allure_results: target/allure-results/edge
           allure_history: allure-history/edge
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files
@@ -211,14 +211,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history/edge
+          publish_dir: target/allure-results/edge
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Edge_Grid_Allure
-          path: allure-history/edge
+          path: target/allure-results/edge
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
