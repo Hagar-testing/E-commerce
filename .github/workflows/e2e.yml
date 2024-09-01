@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: allure-history/chrome
+          path: target/allure-results/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
