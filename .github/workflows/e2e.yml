@@ -50,13 +50,13 @@ jobs:
           git pull origin gh-pages --rebase
 
 
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/chrome
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -119,13 +119,13 @@ jobs:
           git pull origin gh-pages --rebase
 
 
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/firefox
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/firefox
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -188,13 +188,13 @@ jobs:
           git pull origin gh-pages --rebase
 
 
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/edge
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/edge
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
