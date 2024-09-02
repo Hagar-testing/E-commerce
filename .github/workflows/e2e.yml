@@ -49,6 +49,25 @@ jobs:
       - name: Locate and Display Allure History Files2
         run: ls -l target/allure-results
 
+      - name: Fetch gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin gh-pages --rebase
+
+
+      # Define concurrency only for the push step
+      - name: Publish Allure Report
+        uses: peaceiris/actions-gh-pages@v4
+        concurrency:
+          group: e2e-tests-publish-gh-pages
+          cancel-in-progress: false
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history/chrome
+          destination_dir: chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -111,6 +130,25 @@ jobs:
       - name: Locate and Display Allure History Files2
         run: ls -l target/allure-results
 
+      - name: Fetch gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin gh-pages --rebase
+
+      # Define concurrency only for the push step
+      - name: Publish Allure Report
+        uses: peaceiris/actions-gh-pages@v4
+        concurrency:
+          group: e2e-tests-publish-gh-pages
+          cancel-in-progress: false
+        if: always()
+        with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+           publish_branch: gh-pages
+           publish_dir: allure-history/firefox
+           destination_dir: firefox
+
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -171,6 +209,26 @@ jobs:
       # Locate 'last-history' files after generating the report
       - name: Locate and Display Allure History Files2
         run: ls -l target/allure-results
+
+      - name: Fetch gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin gh-pages --rebase
+
+
+      # Define concurrency only for the push step
+      - name: Publish Allure Report
+        uses: peaceiris/actions-gh-pages@v4
+        concurrency:
+          group: e2e-tests-publish-gh-pages
+          cancel-in-progress: false
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history/edge
+          destination_dir: edge
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
