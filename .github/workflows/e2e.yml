@@ -42,12 +42,14 @@ jobs:
         with:
           allure_results: target/allure-results/chrome
 
+          allure_history: allure-history/chrome
 
       - name: Fetch gh-pages branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase
+
 
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
@@ -119,14 +121,15 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase
 
+
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
-           publish_branch: gh-pages
-           publish_dir: allure-history/firefox
-           destination_dir: firefox
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history/firefox
+          destination_dir: firefox
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -204,7 +207,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Edge_Grid_Allure
-          path: allure-history/chrome
+          path: allure-history/edge
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
