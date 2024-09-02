@@ -58,8 +58,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/chrome
-          destination_dir: chrome
-          base_url: /E-commerce-Docker-Github-Actions/chrome
+          destination_dir: chrome/${{ github.run_number }}
+
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -130,7 +130,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/firefox
-          destination_dir: firefox
+          destination_dir: firefox/${{ github.run_number }}
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -201,7 +201,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history/edge
-          destination_dir: edge
+          destination_dir: edge/${{ github.run_number }}
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
