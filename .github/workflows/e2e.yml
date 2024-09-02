@@ -59,6 +59,7 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history/chrome
           destination_dir: chrome
+          base_url: /E-commerce-Docker-Github-Actions/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
