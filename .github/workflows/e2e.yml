@@ -32,41 +32,25 @@ jobs:
       - name: Check running containers
         run: docker ps
 
-      - name: Run tests
-        continue-on-error: true
-        run: mvn clean test -Dbrowser=chrome -Dallure.results.directory=target/allure-results/chrome
+      - name: Build Allure Docker image
+        run: docker build . -t allure-gen
 
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          allure_results: target/allure-results/chrome
-
-          allure_history: allure-history/chrome
-
-      - name: Fetch gh-pages branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin gh-pages --rebase
-
-
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/chrome
-          destination_dir: chrome/${{ github.run_number }}
-
+      - name: Generate Allure report locally
+        run: docker run -v ${PWD}:/github/workspace allure-gen target/allure-results/chrome target/allure-report/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: allure-history/chrome
+          path: target/allure-report/chrome
+
+#      - name: Upload Allure Report as Pipeline Artifact
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Ubuntu_Chrome_Grid_Allure
+#          path: allure-history/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
@@ -80,145 +64,145 @@ jobs:
         with:
           paths: target/surefire-reports/junitreports/TEST-*.xml
         if: always()
-  Ubuntu_Firefox_Grid:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Native Selenium Grid
-        run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: zulu
-          cache: maven
-
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.5
-
-      - name: Check running containers
-        run: docker ps
-
-      - name: Run tests
-        continue-on-error: true
-        run: mvn clean test -Dbrowser=firefox -Dallure.results.directory=target/allure-results/firefox
-
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          allure_results: target/allure-results/firefox
-          allure_history: allure-history/firefox
-
-
-      - name: Fetch gh-pages branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin gh-pages --rebase
-
-
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/firefox
-          destination_dir: firefox/${{ github.run_number }}
-
-      - name: Upload Allure Report as Pipeline Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Ubuntu_Firefox_Grid_Allure
-          path: allure-history/firefox
-
-      - name: Upload Extend Report as Pipeline Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Ubuntu_Firefox_Grid_Extend_Report
-          path: target/extend-report
-
-      - name: Test Summary
-        uses: test-summary/action@v2
-        with:
-          paths: target/surefire-reports/junitreports/TEST-*.xml
-        if: always()
-
-  Ubuntu_Edge_Grid:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Native Selenium Grid
-        run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: zulu
-          cache: maven
-
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.5
-
-      - name: Check running containers
-        run: docker ps
-
-      - name: Run tests
-        continue-on-error: true
-        run: mvn clean test -Dbrowser=edge -Dallure.results.directory=target/allure-results/edge
-
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          allure_results: target/allure-results/edge
-          allure_history: allure-history/edge
-
-      - name: Fetch gh-pages branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin gh-pages --rebase
-
-
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/edge
-          destination_dir: edge/${{ github.run_number }}
-
-      - name: Upload Allure Report as Pipeline Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Ubuntu_Edge_Grid_Allure
-          path: allure-history/edge
-
-      - name: Upload Extend Report as Pipeline Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Ubuntu_Edge_Grid_Extend_Report
-          path: target/extend-report
-
-      - name: Test Summary
-        uses: test-summary/action@v2
-        with:
-          paths: target/surefire-reports/junitreports/TEST-*.xml
-        if: always()
+#  Ubuntu_Firefox_Grid:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Native Selenium Grid
+#        run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
+#
+#      - name: Set up JDK 21
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '21'
+#          distribution: zulu
+#          cache: maven
+#
+#      - name: Set up Maven
+#        uses: stCarolas/setup-maven@v5
+#        with:
+#          maven-version: 3.9.5
+#
+#      - name: Check running containers
+#        run: docker ps
+#
+#      - name: Run tests
+#        continue-on-error: true
+#        run: mvn clean test -Dbrowser=firefox -Dallure.results.directory=target/allure-results/firefox
+#
+#      - name: Generate Allure report
+#        uses: simple-elf/allure-report-action@v1.7
+#        if: always()
+#        with:
+#          allure_results: target/allure-results/firefox
+#          allure_history: allure-history/firefox
+#
+#
+#      - name: Fetch gh-pages branch
+#        run: |
+#          git config user.name "github-actions[bot]"
+#          git config user.email "github-actions[bot]@users.noreply.github.com"
+#          git pull origin gh-pages --rebase
+#
+#
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/firefox
+#          destination_dir: firefox/${{ github.run_number }}
+#
+#      - name: Upload Allure Report as Pipeline Artifact
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Ubuntu_Firefox_Grid_Allure
+#          path: allure-history/firefox
+#
+#      - name: Upload Extend Report as Pipeline Artifact
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Ubuntu_Firefox_Grid_Extend_Report
+#          path: target/extend-report
+#
+#      - name: Test Summary
+#        uses: test-summary/action@v2
+#        with:
+#          paths: target/surefire-reports/junitreports/TEST-*.xml
+#        if: always()
+#
+#  Ubuntu_Edge_Grid:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Native Selenium Grid
+#        run: docker compose -f src/main/resources/docker/docker-compose-v3.yml up -d
+#
+#      - name: Set up JDK 21
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '21'
+#          distribution: zulu
+#          cache: maven
+#
+#      - name: Set up Maven
+#        uses: stCarolas/setup-maven@v5
+#        with:
+#          maven-version: 3.9.5
+#
+#      - name: Check running containers
+#        run: docker ps
+#
+#      - name: Run tests
+#        continue-on-error: true
+#        run: mvn clean test -Dbrowser=edge -Dallure.results.directory=target/allure-results/edge
+#
+#      - name: Generate Allure report
+#        uses: simple-elf/allure-report-action@v1.7
+#        if: always()
+#        with:
+#          allure_results: target/allure-results/edge
+#          allure_history: allure-history/edge
+#
+#      - name: Fetch gh-pages branch
+#        run: |
+#          git config user.name "github-actions[bot]"
+#          git config user.email "github-actions[bot]@users.noreply.github.com"
+#          git pull origin gh-pages --rebase
+#
+#
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/edge
+#          destination_dir: edge/${{ github.run_number }}
+#
+#      - name: Upload Allure Report as Pipeline Artifact
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Ubuntu_Edge_Grid_Allure
+#          path: allure-history/edge
+#
+#      - name: Upload Extend Report as Pipeline Artifact
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Ubuntu_Edge_Grid_Extend_Report
+#          path: target/extend-report
+#
+#      - name: Test Summary
+#        uses: test-summary/action@v2
+#        with:
+#          paths: target/surefire-reports/junitreports/TEST-*.xml
+#        if: always()
