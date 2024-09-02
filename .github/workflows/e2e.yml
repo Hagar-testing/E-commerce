@@ -42,12 +42,6 @@ jobs:
         with:
           allure_results: target/allure-results/chrome
 
-          # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files
-        run: ls -l target/allure-history
-      # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files2
-        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
@@ -69,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: target/allure-results/chrome
+          path: allure-history/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
@@ -117,13 +111,7 @@ jobs:
         with:
           allure_results: target/allure-results/firefox
           allure_history: allure-history/firefox
-      # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files
-        run: ls -l target/allure-results/firefox
 
-      # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files2
-        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
@@ -194,12 +182,6 @@ jobs:
         with:
           allure_results: target/allure-results/edge
           allure_history: allure-history/edge
-      # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files
-        run: ls -l target/allure-results/edge
-      # Locate 'last-history' files after generating the report
-      - name: Locate and Display Allure History Files2
-        run: ls -l target/allure-results
 
       - name: Fetch gh-pages branch
         run: |
@@ -222,7 +204,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Edge_Grid_Allure
-          path: allure-history/edge
+          path: allure-history/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
