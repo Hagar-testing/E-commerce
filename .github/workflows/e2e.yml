@@ -49,13 +49,24 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase || echo "No changes to pull"
 
-      - name: Publish Allure Report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
+#      - name: Publish Allure Report
+#        uses: peaceiris/actions-gh-pages@v4
+#        if: always()
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history/${{ github.job }}
+
+      - name: ALLURE REPORT - GH Pages Push - SAME REPO
+        uses: PavanMudigonda/html-reporter-github-pages@v1.3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history/${{ github.job }}
+          test_results: allure-results
+          allure_report_generate_flag: true
+          keep_reports: 20
+          gh_pages: gh_pages # BRANCH NAME you like
+          subfolder: docs  # Level 1 Folder Structure you like
+          tool_name: ${{ github.job }} # Level 2 Folder Structure you like
+          workflow_name: ${{ github.workflow }} # Level 3 Folder Structure you like
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
