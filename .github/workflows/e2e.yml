@@ -6,7 +6,9 @@ on:
   schedule:
     - cron: 00 1 * * *
   workflow_dispatch:
-
+concurrency:
+  group: Browsers with Native Grid
+  cancel-in-progress: false
 jobs:
   Ubuntu_Chrome_Grid:
     runs-on: ubuntu-latest
@@ -36,25 +38,35 @@ jobs:
         continue-on-error: true
         run: mvn clean test -Dbrowser=chrome -Dallure.results.directory=target/allure-results/chrome
 
-      - name: Build Allure Docker image
-        run: docker build . -t allure-gen
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          allure_results: target/allure-results/chrome
 
-      - name: Generate Allure report locally
-        run: docker run -v ${PWD}:/github/workspace allure-gen target/allure-results/chrome target/allure-report/chrome
+          allure_history: allure-history/chrome
+
+      - name: Fetch gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin gh-pages --rebase
+
+
+      - name: Publish Allure Report
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history/chrome
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu_Chrome_Grid_Allure
-          path: target/allure-report/chrome
-
-#      - name: Upload Allure Report as Pipeline Artifact
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: Ubuntu_Chrome_Grid_Allure
-#          path: allure-history/chrome
+          path: allure-history/chrome
 
       - name: Upload Extend Report as Pipeline Artifact
         if: always()
@@ -118,7 +130,6 @@ jobs:
 #          github_token: ${{ secrets.GITHUB_TOKEN }}
 #          publish_branch: gh-pages
 #          publish_dir: allure-history/firefox
-#          destination_dir: firefox/${{ github.run_number }}
 #
 #      - name: Upload Allure Report as Pipeline Artifact
 #        if: always()
@@ -189,7 +200,6 @@ jobs:
 #          github_token: ${{ secrets.GITHUB_TOKEN }}
 #          publish_branch: gh-pages
 #          publish_dir: allure-history/edge
-#          destination_dir: edge/${{ github.run_number }}
 #
 #      - name: Upload Allure Report as Pipeline Artifact
 #        if: always()
