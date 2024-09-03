@@ -6,9 +6,7 @@ on:
   schedule:
     - cron: 00 1 * * *
   workflow_dispatch:
-concurrency:
-  group: Browsers with Native Grid
-  cancel-in-progress: false
+
 jobs:
   Ubuntu_Chrome_Grid:
     runs-on: ubuntu-latest
