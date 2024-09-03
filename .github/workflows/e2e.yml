@@ -70,10 +70,10 @@ jobs:
 
       - name: Generate Allure Report using Docker
         run: |
-            docker run --rm -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate target/allure-results/chrome -o target/allure-results/chrome
+          docker run --rm -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate --clean target/allure-results/chrome -o target/allure-results/chrome
+      
 
-
-#      - name: Generate Allure report
+      #      - name: Generate Allure report
 #        uses: jcleigh/allure-single-file-report-action@v1
 #        with:
 #          allure_results: target/allure-results/chrome
