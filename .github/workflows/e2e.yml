@@ -39,12 +39,19 @@ jobs:
       - name: Verify Test Results
         run: |
           ls -R target/allure-results/chrome
-      
+
+      - name: Verify Test Results
+        run: |
+          echo "Listing contents of allure-results directory:"
+          ls -R target/allure-results/chrome
+          echo "Displaying contents of JSON files:"
+          head -n 10 target/allure-results/chrome/*.json || true
 
       - name: Generate Allure Report using Docker
         run: |
-          docker run --rm -u $(id -u):$(id -g) -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate --clean target/allure-results/chrome -o target/allure-results/chrome
-
+          docker run --rm -u $(id -u):$(id -g) -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate --clean target/allure-results/chrome -o target/allure-results/chrome > allure-generate.log 2>&1
+          cat allure-generate.log
+      
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
