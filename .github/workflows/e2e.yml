@@ -36,48 +36,15 @@ jobs:
         continue-on-error: true
         run: mvn clean test -Dbrowser=chrome -Dallure.results.directory=target/allure-results/chrome
 
-#      - name: Generate Allure test report
-#        uses: andgineer/allure-report@v3.3
-#        id: allure-report
-#        if: always()
-#        with:
-#          allure-results: target/allure-results/chrome
-#          website: gh-pages-dir
-#          reports-site-path: builds/tests
-#
-#      - name: Fetch gh-pages branch
-#        run: |
-#          git config user.name "github-actions[bot]"
-#          git config user.email "github-actions[bot]@users.noreply.github.com"
-#          git pull origin gh-pages --rebase || echo "No changes to pull"
-#
-##      - name: Publish Allure Report
-##        uses: peaceiris/actions-gh-pages@v4
-##        if: always()
-##        with:
-##          github_token: ${{ secrets.GITHUB_TOKEN }}
-##          publish_branch: gh-pages
-##          publish_dir: allure-history/${{ github.job }}
-#
-#      - name: Publish Allure test report
-#        uses: peaceiris/actions-gh-pages@v3
-#        if: ${{ always() && (steps.allure-report.outcome == 'success') }}
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_branch: gh-pages
-#          publish_dir: ${{ steps.allure-report.outputs.reports-site }}
-#          destination_dir: ${{ steps.allure-report.outputs.reports-site-path }}
+      - name: Verify Test Results
+        run: |
+          ls -R target/allure-results/chrome
+      
 
       - name: Generate Allure Report using Docker
         run: |
           docker run --rm -u $(id -u):$(id -g) -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate --clean target/allure-results/chrome -o target/allure-results/chrome
-      
 
-      #      - name: Generate Allure report
-#        uses: jcleigh/allure-single-file-report-action@v1
-#        with:
-#          allure_results: target/allure-results/chrome
-#          allure_report: allure-history
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
