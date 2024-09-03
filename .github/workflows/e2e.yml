@@ -4,7 +4,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: 00 1 * * *
+    - cron: '00 1 * * *'
   workflow_dispatch:
 
 jobs:
@@ -41,7 +41,6 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results/chrome
-
           allure_history: allure-history/chrome
 
       - name: Fetch gh-pages branch
@@ -50,14 +49,13 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase
 
-
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history/chrome
+          publish_dir: allure-history/chrome/${{ github.run_id }}-chrome-${{ github.sha }}
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -78,6 +76,7 @@ jobs:
         with:
           paths: target/surefire-reports/junitreports/TEST-*.xml
         if: always()
+
   Ubuntu_Firefox_Grid:
     runs-on: ubuntu-latest
     steps:
@@ -113,13 +112,11 @@ jobs:
           allure_results: target/allure-results/firefox
           allure_history: allure-history/firefox
 
-
       - name: Fetch gh-pages branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase
-
 
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
@@ -127,7 +124,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history/firefox
+          publish_dir: allure-history/firefox/${{ github.run_id }}-firefox-${{ github.sha }}
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
@@ -190,14 +187,13 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin gh-pages --rebase
 
-
       - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history/edge
+          publish_dir: allure-history/edge/${{ github.run_id }}-edge-${{ github.sha }}
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
