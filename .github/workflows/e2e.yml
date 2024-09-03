@@ -66,7 +66,6 @@ jobs:
           gh_pages: gh_pages # BRANCH NAME you like
           subfolder: docs  # Level 1 Folder Structure you like
           tool_name: allure # Level 2 Folder Structure you like
-          workflow_name: ${{ github.workflow }} # Level 3 Folder Structure you like
 
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
