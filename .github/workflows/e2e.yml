@@ -70,8 +70,14 @@ jobs:
 
       - name: Generate Allure Report using Docker
         run: |
-            docker run --rm -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate target/allure-results -o target/allure-report
+            docker run --rm -v ${{ github.workspace }}:/allure -w /allure frankescobar/allure-docker-service:latest allure generate target/allure-results/chrome -o target/allure-results/chrome
 
+
+#      - name: Generate Allure report
+#        uses: jcleigh/allure-single-file-report-action@v1
+#        with:
+#          allure_results: target/allure-results/chrome
+#          allure_report: allure-history
       - name: Upload Allure Report as Pipeline Artifact
         if: always()
         uses: actions/upload-artifact@v4
