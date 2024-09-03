@@ -36,12 +36,14 @@ jobs:
         continue-on-error: true
         run: mvn clean test -Dbrowser=chrome -Dallure.results.directory=target/allure-results/chrome
 
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@v1.7
+      - name: Generate Allure test report
+        uses: andgineer/allure-report@v3.3
+        id: allure-report
         if: always()
         with:
-          allure_results: target/allure-results/chrome
-          allure_history: allure-history/chrome
+          allure-results: allure-results
+          website: gh-pages-dir
+          reports-site-path: builds/tests
 
       - name: Fetch gh-pages branch
         run: |
